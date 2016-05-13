@@ -1,10 +1,10 @@
 module rnd_cell(
-    input   [10:0]LFSR,
-    output  [5:0]X,
-    output  [4:0]Y
+    input   [15:0]LFSR,
+    output  [2:0]X,
+    output  [2:0]Y
 );
 
-assign X = (LFSR[10:5] > 39) ? (LFSR[10:5] - 39) : LFSR[10:5];
-assign Y = (LFSR[4:0]  > 29) ? (LFSR[4:0]  - 29) : LFSR[4:0];
+assign X = [10:8]LFSR;
+assign Y = [2:0]LFSR;
 
 endmodule

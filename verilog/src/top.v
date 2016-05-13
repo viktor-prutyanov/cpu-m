@@ -3,7 +3,7 @@ module top
     input CLK,
     
     input [3:0]KEYS,
-
+        
     output [7:0]LED,
     
     output [7:0]L_GREEN,
@@ -12,18 +12,24 @@ module top
 );
 
 wire [11:0]ram_addr;
+wire [11:0]m_ram_addr;
 wire [15:0]ram_data;
-wire ram1_wren;
-wire [15:0]ram1_q;
+wire ram_wren;
+wire [15:0]ram_q;
+wire [15:0]m_ram_q;
 ram ram_inst(
-    .address(ram_addr),
+    .address_a(ram_addr),
+    .address_b(m_ram_addr),
     .clock(~CLK),
-    .data(ram_data),
-    .wren(ram1_wren),
-    .q(ram1_q)
+    .data_a(ram_data),
+    .data_b(16'b0),
+    .wren_a(ram_wren),
+    .wren_b(1'b0),
+    .q_a(ram_q),
+    .q_b(m_ram_q)
 );
 
-wire [31:0]in = {28'b0, KEYS[3:0]};
+wire [31:0]in = {5'b0, lfsr16_q[10:8], 5'b0, lfsr16_q[2:0], 12'b0, KEYS[3:0]};
 core core_inst(
     .CLK(CLK),
     .OUT(LED),
@@ -34,17 +40,6 @@ core core_inst(
     .RAM_Q(ram_q),
     .RAM_DATA(ram_data),
 
-    .MEM_SELECT(mem_select)
-);
-
-wire ram_wren;
-wire [15:0]ram_q;
-wire mem_select;
-mem_selector mem_selector_inst(
-    .WREN(ram_wren), .Q(ram_q),
-    .WREN1(ram1_wren), .Q1(ram1_q),
-    .WREN2(ram2_wren), .Q2(ram2_q),
-    .SELECT(mem_select)
 );
 
 //wire [15:0]num_l;
@@ -55,31 +50,19 @@ mem_selector mem_selector_inst(
 //    .NUM(num_l)
 //);
 
-//wire [15:0]lfsr16_q;
-//lfsr16 lfsr16_inst(
-//    .CLK(CLK),
-//    .Q(lfsr16_q)
-//);
+wire [15:0]lfsr16_q;
+lfsr16 lfsr16_inst(
+    .CLK(CLK),
+    .Q(lfsr16_q)
+);
 
-//wire [5:0]rnd_x;
-//wire [4:0]rnd_y;
-//rnd_cell rnd_cell_inst(
-//    .LFSR(lfsr16_q[10:0]),
-//    .X(rnd_x),
-//    .Y(rnd_y)
-//);
-
-wire ram2_wren;
-wire [15:0]ram2_q;
 matrix_driver matrix_driver_inst(
     .CLK(CLK),
     .L_GREEN(L_GREEN[7:0]),
     .L_RED(L_RED[7:0]),
     .L_VCC(L_VCC[7:0]),
-    .DATA(ram_data),
-    .WREN(ram2_wren),
-    .ADDR(ram_addr[2:0]),
-    .Q(ram2_q)
+    .RAM_Q(m_ram_q),
+    .RAM_ADDR(m_ram_addr)
 );
 
 endmodule

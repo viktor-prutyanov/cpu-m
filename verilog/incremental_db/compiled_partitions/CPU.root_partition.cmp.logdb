@@ -1,0 +1,2 @@
+v1
+PORT_SWAPPING,PORT_SWAP_TYPE_DSPMULT,core:core_inst|alu:alu_inst|mult:mult_inst|lpm_mult:lpm_mult_component|mult_q8n:auto_generated|mac_mult5,

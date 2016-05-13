@@ -1,0 +1,77 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'CLK'
+Slack : -20.555
+TNS   : -5606.645
+
+Type  : Slow 1200mV 85C Model Setup 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : -0.350
+TNS   : -0.393
+
+Type  : Slow 1200mV 85C Model Hold 'CLK'
+Slack : 0.433
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : 0.454
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLK'
+Slack : -3.201
+TNS   : -859.670
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : -1.487
+TNS   : -4.461
+
+Type  : Slow 1200mV 0C Model Setup 'CLK'
+Slack : -19.234
+TNS   : -5287.659
+
+Type  : Slow 1200mV 0C Model Setup 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : -0.216
+TNS   : -0.216
+
+Type  : Slow 1200mV 0C Model Hold 'CLK'
+Slack : 0.383
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : 0.403
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLK'
+Slack : -3.201
+TNS   : -859.670
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : -1.487
+TNS   : -4.461
+
+Type  : Fast 1200mV 0C Model Setup 'CLK'
+Slack : -9.208
+TNS   : -2292.544
+
+Type  : Fast 1200mV 0C Model Setup 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : 0.407
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'CLK'
+Slack : 0.178
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : 0.187
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLK'
+Slack : -3.000
+TNS   : -586.482
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'matrix_driver:matrix_driver_inst|cnt[11]'
+Slack : -1.000
+TNS   : -3.000
+
+------------------------------------------------------------

@@ -10,14 +10,11 @@ module core
     output reg RAM_WREN,
     output reg [15:0]RAM_DATA,
 
-    output reg MEM_SELECT,
-
     output STATE
 );
 
 `define Next_instr cpu_state <= 9'b1_00000_010; ip = inc_ip; RAM_ADDR = ip;
 
-initial MEM_SELECT = 1'b0;
 initial RAM_WREN = 1'b0;
 
 assign STATE = cpu_state[8];
@@ -201,7 +198,6 @@ always @(posedge CLK) begin
                                     5'b11000: begin //LDRAML
                                         mem_to_reg_l <= 1'b1;
                                         mem_to_reg_wa <= reg_wa;
-                                        MEM_SELECT <= reg_out0[16];
                                         cpu_state <= 9'b0_00001_000;
                                         ip = inc_ip;
                                         RAM_ADDR = reg_out0[11:0];
@@ -209,7 +205,6 @@ always @(posedge CLK) begin
                                     5'b11001: begin //LDRAMH
                                         mem_to_reg_h <= 1'b1;
                                         mem_to_reg_wa <= reg_wa;
-                                        MEM_SELECT <= reg_out0[16];
                                         cpu_state <= 9'b0_00001_001;
                                         ip = inc_ip;
                                         RAM_ADDR = reg_out0[11:0];
@@ -272,7 +267,6 @@ always @(posedge CLK) begin
                                     2'b00: begin //STRAML
                                         RAM_DATA <= reg_out0[15:0];
                                         RAM_WREN <= 1'b1;
-                                        MEM_SELECT <= reg_out1[16];
                                         cpu_state <= 9'b0_00010_000;
                                         ip = inc_ip;
                                         RAM_ADDR <= reg_out1[11:0];
@@ -280,7 +274,6 @@ always @(posedge CLK) begin
                                     2'b01: begin //STRAMH
                                         RAM_DATA <= reg_out0[31:16];
                                         RAM_WREN <= 1'b1;
-                                        MEM_SELECT <= reg_out1[16];
                                         cpu_state <= 9'b0_00010_000;
                                         ip = inc_ip;
                                         RAM_ADDR <= reg_out1[11:0];
@@ -446,13 +439,11 @@ always @(posedge CLK) begin
 /*POPL*/    reg_in[15:0] <= RAM_Q;
 /*MOVL*/    cpu_state <= 9'b0_00001_011;
 /*MOVD*/    RAM_ADDR = ip;  
-            MEM_SELECT <= 1'b0;
         end
 /*LDOH*/9'b0_00001_001: begin
 /*POPH*/    reg_in[31:16] <= RAM_Q;
 /*MOVH*/    cpu_state <= 9'b0_00001_011;
             RAM_ADDR = ip;
-            MEM_SELECT <= 1'b0;
         end
 /*RET*/ 9'b0_00001_010: begin
             cpu_state <= 9'b0_00001_011;
@@ -466,8 +457,7 @@ always @(posedge CLK) begin
         end
 /*LDIx*/9'b0_00010_000: begin
 /*PUSHx*/   RAM_WREN <= 1'b0;  
-/*CALL*/    MEM_SELECT <= 1'b0;
-            cpu_state <= 9'b1_00000_010;
+/*CALL*/    cpu_state <= 9'b1_00000_010;
             RAM_ADDR = ip;  
         end
     endcase
